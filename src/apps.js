@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 
+const hltlAuthRoutes = require('./hltlRoutes/hltlAuthRoutes.js');
 
 
 dotenv.config();
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-setupSwagger(app);
+app.use('/hltlAuth', hltlAuthRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
