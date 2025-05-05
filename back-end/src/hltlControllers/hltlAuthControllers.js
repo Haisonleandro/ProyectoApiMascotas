@@ -21,7 +21,7 @@ const hltlRegistrarUsers = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 8);
         console.log("Contraseña encriptada:", hashedPassword);
 
-        const nuevoUsers = await prisma.users.create({
+        const nuevoUsers = await prisma.users.create({ 
             data: {
                 email: Number(email), 
                 password: hashedPassword
