@@ -18,7 +18,7 @@ const hltlRegistrarUsers = async (req, res) => {
             return res.status(400).json({ error: "email y password son obligatorios" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 8);
         console.log("Contraseña encriptada:", hashedPassword);
 
         const nuevoUsers = await prisma.users.create({

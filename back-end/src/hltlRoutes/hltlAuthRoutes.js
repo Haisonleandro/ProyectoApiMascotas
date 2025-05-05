@@ -3,7 +3,7 @@ const { hltlRegistrarUsers, hltlloginUsers } = require('../hltlControllers/hltlA
 
 const router = express.Router();
 
-router.post('/registro', hltlRegistrarUsers );
-router.post('/login', hltlloginUsers);
+router.post('/hltlregistro', hltlRegistrarUsers );
+router.post('/hltllogin', hltlloginUsers);
 
 module.exports = router;
