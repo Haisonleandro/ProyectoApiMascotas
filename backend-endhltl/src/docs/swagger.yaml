@@ -1,0 +1,1432 @@
+openapi: 3.0.0
+info:
+  title: Sistema de Gestión de Clientes y Facturación
+  description: API para administrar clientes, facturas, productos y vendedores en el sistema.
+  version: 1.0.0
+
+paths:
+  # Gestión de Clientes
+  /clientes:
+    post:
+      summary: Registrar un nuevo cliente
+      description: Crea un cliente nuevo con la información proporcionada.
+      operationId: registrarClienteLTY
+      tags:
+        - Clientes
+      requestBody:
+        description: Información del cliente a registrar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre completo del cliente
+                  example: "Leandro YYY"
+                direccion:
+                  type: string
+                  description: Dirección residencial del cliente
+                  example: "Avenida Siempre Viva 456"
+                telefono:
+                  type: string
+                  description: Número de contacto del cliente
+                  example: "+573143525364"
+                correo:
+                  type: string
+                  description: Correo electrónico del cliente
+                  example: "leandro.yyy@example.com"
+      responses:
+        '201':
+          description: Cliente registrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Cliente registrado con éxito"
+                  cliente:
+                    type: object
+                    properties:
+                      documento:
+                        type: integer
+                        example: 987654321
+                      nombre:
+                        type: string
+                        example: "Leandro YYY"
+                      direccion:
+                        type: string
+                        example: "Avenida Siempre Viva 456"
+                      telefono:
+                        type: string
+                        example: "+573143525364"
+                      correo:
+                        type: string
+                        example: "leandro.yyy@example.com"
+        '500':
+          description: Error al registrar el cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al registrar el cliente"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+    get:
+      summary: Listar todos los clientes
+      description: Obtiene la lista completa de clientes registrados.
+      operationId: listarClientesLTY
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Lista de clientes obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Clientes obtenidos correctamente"
+                  clientes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        documento:
+                          type: integer
+                          example: 987654321
+                        nombre:
+                          type: string
+                          example: "Leandro YYY"
+                        direccion:
+                          type: string
+                          example: "Avenida Siempre Viva 456"
+                        telefono:
+                          type: string
+                          example: "+573143525364"
+                        correo:
+                          type: string
+                          example: "leandro.yyy@example.com"
+        '500':
+          description: Error al obtener los clientes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los clientes"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  /clientes/{id}:
+    put:
+      summary: Modificar datos de un cliente
+      description: Actualiza la información de un cliente existente según su documento.
+      operationId: modificarClienteLTY
+      tags:
+        - Clientes
+      parameters:
+        - name: id
+          in: path
+          description: Documento de identidad del cliente
+          required: true
+          schema:
+            type: integer
+            example: 987654321
+      requestBody:
+        description: Datos actualizados del cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre completo del cliente
+                  example: "Leandro YYY"
+                direccion:
+                  type: string
+                  description: Dirección residencial del cliente
+                  example: "Avenida Siempre Viva 456"
+                telefono:
+                  type: string
+                  description: Número de contacto del cliente
+                  example: "+573143525364"
+                correo:
+                  type: string
+                  description: Correo electrónico del cliente
+                  example: "leandro.yyy@example.com"
+      responses:
+        '200':
+          description: Cliente modificado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Cliente modificado con éxito"
+                  cliente:
+                    type: object
+                    properties:
+                      documento:
+                        type: integer
+                        example: 987654321
+                      nombre:
+                        type: string
+                        example: "Leandro YYY"
+                      direccion:
+                        type: string
+                        example: "Avenida Siempre Viva 456"
+                      telefono:
+                        type: string
+                        example: "+573143525364"
+                      correo:
+                        type: string
+                        example: "leandro.yyy@example.com"
+        '500':
+          description: Error al modificar el cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al modificar el cliente"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+    delete:
+      summary: Eliminar un cliente
+      description: Elimina un cliente del sistema usando su documento de identidad.
+      operationId: eliminarClienteLTY
+      tags:
+        - Clientes
+      parameters:
+        - name: id
+          in: path
+          description: Documento de identidad del cliente
+          required: true
+          schema:
+            type: integer
+            example: 987654321
+      responses:
+        '200':
+          description: Cliente eliminado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Cliente eliminado con éxito"
+        '500':
+          description: Error al eliminar el cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al eliminar el cliente"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  # Gestión de Detalles de Factura
+  /detalle-factura:
+    post:
+      summary: Registrar un detalle de factura
+      description: Crea un nuevo detalle de factura con la información proporcionada.
+      operationId: registrarDetalleFacturaLTY
+      tags:
+        - Detalle Factura
+      requestBody:
+        description: Información del detalle de factura
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                producto:
+                  type: string
+                  description: Nombre del producto
+                  example: "Producto XYZ"
+                cantidad:
+                  type: integer
+                  description: Cantidad comprada
+                  example: 3
+                precioUnitario:
+                  type: number
+                  format: float
+                  description: Precio por unidad del producto
+                  example: 75.0
+                total:
+                  type: number
+                  format: float
+                  description: Total (cantidad * precioUnitario)
+                  example: 225.0
+      responses:
+        '201':
+          description: Detalle de factura registrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Detalle de factura registrado con éxito"
+                  detalle:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      producto:
+                        type: string
+                        example: "Producto XYZ"
+                      cantidad:
+                        type: integer
+                        example: 3
+                      precioUnitario:
+                        type: number
+                        format: float
+                        example: 75.0
+                      total:
+                        type: number
+                        format: float
+                        example: 225.0
+        '500':
+          description: Error al registrar el detalle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al registrar el detalle de factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+    get:
+      summary: Listar todos los detalles de factura
+      description: Obtiene todos los detalles de factura registrados.
+      operationId: listarDetallesFacturaLTY
+      tags:
+        - Detalle Factura
+      responses:
+        '200':
+          description: Detalles de factura obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Detalles de factura obtenidos correctamente"
+                  detalles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        producto:
+                          type: string
+                          example: "Producto XYZ"
+                        cantidad:
+                          type: integer
+                          example: 3
+                        precioUnitario:
+                          type: number
+                          format: float
+                          example: 75.0
+                        total:
+                          type: number
+                          format: float
+                          example: 225.0
+        '500':
+          description: Error al obtener los detalles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los detalles de factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  /detalle-factura/{id}:
+    put:
+      summary: Modificar un detalle de factura
+      description: Actualiza un detalle de factura existente.
+      operationId: modificarDetalleFacturaLTY
+      tags:
+        - Detalle Factura
+      parameters:
+        - name: id
+          in: path
+          description: ID del detalle de factura
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados del detalle
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                producto:
+                  type: string
+                  description: Nombre del producto
+                  example: "Producto XYZ"
+                cantidad:
+                  type: integer
+                  description: Cantidad comprada
+                  example: 3
+                precioUnitario:
+                  type: number
+                  format: float
+                  description: Precio por unidad del producto
+                  example: 75.0
+                total:
+                  type: number
+                  format: float
+                  description: Total calculado
+                  example: 225.0
+      responses:
+        '200':
+          description: Detalle de factura modificado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Detalle de factura modificado con éxito"
+                  detalle:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      producto:
+                        type: string
+                        example: "Producto XYZ"
+                      cantidad:
+                        type: integer
+                        example: 3
+                      precioUnitario:
+                        type: number
+                        format: float
+                        example: 75.0
+                      total:
+                        type: number
+                        format: float
+                        example: 225.0
+        '500':
+          description: Error al modificar el detalle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al modificar el detalle de factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+    delete:
+      summary: Eliminar un detalle de factura
+      description: Elimina un detalle de factura existente.
+      operationId: eliminarDetalleFacturaLTY
+      tags:
+        - Detalle Factura
+      parameters:
+        - name: id
+          in: path
+          description: ID del detalle de factura
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Detalle de factura eliminado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Detalle de factura eliminado con éxito"
+        '500':
+          description: Error al eliminar el detalle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al eliminar el detalle de factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  # Gestión de Facturas
+  /facturas:
+    post:
+      summary: Generar una nueva factura
+      description: Crea una factura asociada a un cliente y un vendedor.
+      operationId: generarFacturaLTY
+      tags:
+        - Facturas
+      requestBody:
+        description: Información de la factura
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clienteDocumento:
+                  type: string
+                  description: Documento del cliente
+                  example: "987654321"
+                vendedorUsuario:
+                  type: string
+                  description: Usuario del vendedor
+                  example: "leandro.yyy"
+                valorTotal:
+                  type: number
+                  format: float
+                  description: Valor total de la factura
+                  example: 200.50
+      responses:
+        '201':
+          description: Factura generada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Factura generada con éxito"
+                  factura:
+                    type: object
+                    properties:
+                      numero:
+                        type: integer
+                        example: 1
+                      clienteDocumento:
+                        type: string
+                        example: "987654321"
+                      vendedorUsuario:
+                        type: string
+                        example: "leandro.yyy"
+                      valorTotal:
+                        type: number
+                        format: float
+                        example: 200.50
+        '400':
+          description: Cliente o vendedor no encontrados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Cliente o vendedor no encontrados"
+        '500':
+          description: Error al generar la factura
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al generar la factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  /facturas:
+    get:
+      summary: Listar todas las facturas
+      description: Obtiene todas las facturas con detalles de cliente, vendedor y productos.
+      operationId: listarFacturasLTY
+      tags:
+        - Facturas
+      responses:
+        '200':
+          description: Facturas obtenidas correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Facturas obtenidas correctamente"
+                  facturas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numero:
+                          type: integer
+                          example: 1
+                        fecha:
+                          type: string
+                          format: date
+                          example: "2023-04-10"
+                        clienteDocumento:
+                          type: string
+                          example: "987654321"
+                        valorTotal:
+                          type: number
+                          format: float
+                          example: 200.50
+                        vendedorUsuario:
+                          type: string
+                          example: "leandro.yyy"
+                        cliente:
+                          type: object
+                          properties:
+                            documento:
+                              type: string
+                              example: "987654321"
+                            nombre:
+                              type: string
+                              example: "Leandro YYY"
+                            direccion:
+                              type: string
+                              example: "Avenida Siempre Viva 456"
+                            telefono:
+                              type: string
+                              example: "+573143525364"
+                            correo:
+                              type: string
+                              example: "leandro.yyy@example.com"
+                        detalle:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              productoCodigo:
+                                type: string
+                                example: "PROD002"
+                              cantidad:
+                                type: integer
+                                example: 3
+                              precioUnitario:
+                                type: number
+                                format: float
+                                example: 20.25
+                              precioTotal:
+                                type: number
+                                format: float
+                                example: 60.75
+                              producto:
+                                type: object
+                                properties:
+                                  codigo:
+                                    type: string
+                                    example: "PROD002"
+                                  descripcion:
+                                    type: string
+                                    example: "Producto de ejemplo"
+        '404':
+          description: No se encontraron facturas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "No se encontraron facturas"
+        '500':
+          description: Error al obtener las facturas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener las facturas"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  /facturas/{id}:
+    put:
+      summary: Modificar una factura
+      description: Actualiza los datos de una factura existente.
+      operationId: modificarFacturaLTY
+      tags:
+        - Facturas
+      parameters:
+        - name: id
+          in: path
+          description: Número de la factura
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados de la factura
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                valorTotal:
+                  type: number
+                  format: float
+                  description: Nuevo valor total de la factura
+                  example: 250.00
+      responses:
+        '200':
+          description: Factura modificada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Factura modificada con éxito"
+                  factura:
+                    type: object
+                    properties:
+                      numero:
+                        type: integer
+                        example: 1
+                      clienteDocumento:
+                        type: string
+                        example: "987654321"
+                      vendedorUsuario:
+                        type: string
+                        example: "leandro.yyy"
+                      valorTotal:
+                        type: number
+                        format: float
+                        example: 250.00
+        '400':
+          description: Factura no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Factura no encontrada"
+        '500':
+          description: Error al modificar la factura
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al modificar la factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+    delete:
+      summary: Eliminar una factura
+      description: Elimina una factura existente según su número.
+      operationId: eliminarFacturaLTY
+      tags:
+        - Facturas
+      parameters:
+        - name: id
+          in: path
+          description: Número de la factura
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Factura eliminada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Factura eliminada con éxito"
+        '400':
+          description: Factura no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Factura no encontrada"
+        '500':
+          description: Error al eliminar la factura
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al eliminar la factura"
+                  error:
+                    type: string
+                    example: "Detalles del error."
+
+  # Autenticación
+  /login:
+    post:
+      summary: Autenticar usuario
+      description: Autentica a un vendedor mediante su usuario y contraseña, retornando un token JWT.
+      operationId: autenticarUsuarioLTY
+      tags:
+        - Autenticación
+      requestBody:
+        description: Credenciales del vendedor
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  description: Nombre de usuario del vendedor
+                  example: "leandro.yyy"
+                contrasena:
+                  type: string
+                  description: Contraseña del vendedor
+                  example: "contrasena123"
+      responses:
+        '200':
+          description: Autenticación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Autenticación exitosa"
+                  token:
+                    type: string
+                    description: Token JWT para autenticación
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImxlYW5kcm8ueXl5In0.xyz789"
+        '401':
+          description: Credenciales incorrectas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Usuario o contraseña incorrectos"
+        '500':
+          description: Error en la autenticación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error en la autenticación"
+                  error:
+                    type: string
+                    example: "Detalles del error"
+
+  # Gestión de Productos
+  /productos:
+    post:
+      summary: Registrar un nuevo producto
+      description: Crea un producto nuevo en el sistema.
+      operationId: registrarProductoLTY
+      tags:
+        - Productos
+      requestBody:
+        description: Información del producto
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre del producto
+                  example: "Producto Leandro"
+                descripcion:
+                  type: string
+                  description: Descripción del producto
+                  example: "Descripción de Producto Leandro"
+                cantidad:
+                  type: integer
+                  description: Cantidad disponible
+                  example: 150
+                precio:
+                  type: number
+                  format: float
+                  description: Precio unitario
+                  example: 60.0
+      responses:
+        '201':
+          description: Producto registrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Producto registrado con éxito"
+                  producto:
+                    type: object
+                    properties:
+                      codigo:
+                        type: integer
+                        example: 1
+                      nombre:
+                        type: string
+                        example: "Producto Leandro"
+                      descripcion:
+                        type: string
+                        example: "Descripción de Producto Leandro"
+                      cantidad:
+                        type: integer
+                        example: 150
+                      precio:
+                        type: number
+                        format: float
+                        example: 60.0
+        '500':
+          description: Error al registrar el producto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al registrar el producto"
+
+    get:
+      summary: Listar todos los productos
+      description: Obtiene la lista de productos disponibles con información de ventas.
+      operationId: listarProductosLTY
+      tags:
+        - Productos
+      responses:
+        '200':
+
+
+
+
+          description: Productos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Productos obtenidos correctamente"
+                  productos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: integer
+                          example: 1
+                        nombre:
+                          type: string
+                          example: "Producto Leandro"
+                        unidadesVendidas:
+                          type: integer
+                          example: 75
+                        disponible:
+                          type: integer
+                          example: 75
+        '500':
+          description: Error al obtener los productos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los productos"
+
+  /productos-mas-vendidos:
+    get:
+      summary: Listar productos más vendidos
+      description: Obtiene los 5 productos con mayores ventas y su cantidad vendida.
+      operationId: listarProductosMasVendidosLTY
+      tags:
+        - Productos
+      responses:
+        '200':
+          description: Productos más vendidos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Productos más vendidos obtenidos correctamente"
+                  productos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: integer
+                          example: 1
+                        nombre:
+                          type: string
+                          example: "Producto Leandro"
+                        cantidadVendida:
+                          type: integer
+                          example: 600
+        '500':
+          description: Error al obtener los productos más vendidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los productos más vendidos"
+
+  /productos/{id}:
+    put:
+      summary: Modificar un producto
+      description: Actualiza los detalles de un producto existente.
+      operationId: modificarProductoLTY
+      tags:
+        - Productos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Código del producto a modificar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados del producto
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre del producto
+                  example: "Producto Leandro Actualizado"
+                descripcion:
+                  type: string
+                  description: Descripción del producto
+                  example: "Descripción actualizada de Producto Leandro"
+                cantidad:
+                  type: integer
+                  description: Cantidad disponible
+                  example: 200
+                precio:
+                  type: number
+                  format: float
+                  description: Precio unitario
+                  example: 65.0
+      responses:
+        '200':
+          description: Producto modificado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Producto modificado con éxito"
+                  producto:
+                    type: object
+                    properties:
+                      codigo:
+                        type: integer
+                        example: 1
+                      nombre:
+                        type: string
+                        example: "Producto Leandro Actualizado"
+                      descripcion:
+                        type: string
+                        example: "Descripción actualizada de Producto Leandro"
+                      cantidad:
+                        type: integer
+                        example: 200
+                      precio:
+                        type: number
+                        format: float
+                        example: 65.0
+        '500':
+          description: Error al modificar el producto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al modificar el producto"
+
+    delete:
+      summary: Eliminar un producto
+      description: Elimina un producto del sistema.
+      operationId: eliminarProductoLTY
+      tags:
+        - Productos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Código del producto a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Producto eliminado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Producto eliminado con éxito"
+        '500':
+          description: Error al eliminar el producto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al eliminar el producto"
+
+  # Gestión de Vendedores
+  /vendedores:
+    post:
+      summary: Registrar un nuevo vendedor
+      description: Crea un vendedor con contraseña cifrada.
+      operationId: registrarVendedorLTY
+      tags:
+        - Vendedores
+      requestBody:
+        description: Información del vendedor
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  description: Identificador único del vendedor
+                  example: "leandro.yyy"
+                contrasena:
+                  type: string
+                  description: Contraseña del vendedor
+                  example: "contrasena123"
+                rol:
+                  type: string
+                  description: Rol asignado al vendedor
+                  example: "vendedor"
+      responses:
+        '201':
+          description: Vendedor registrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Vendedor registrado con éxito"
+                  vendedor:
+                    type: object
+                    properties:
+                      usuario:
+                        type: string
+                        example: "leandro.yyy"
+                      contrasena:
+                        type: string
+                        example: "$2a$10$zJ7h0..."
+                      rol:
+                        type: string
+                        example: "vendedor"
+        '500':
+          description: Error al registrar el vendedor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al registrar el vendedor"
+
+    get:
+      summary: Listar todos los vendedores
+      description: Obtiene la lista de vendedores registrados.
+      operationId: listarVendedoresLTY
+      tags:
+        - Vendedores
+      responses:
+        '200':
+          description: Vendedores obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    usuario:
+                      type: string
+                      example: "leandro.yyy"
+                    contrasena:
+                      type: string
+                      example: "$2a$10$zJ7h0..."
+                    rol:
+                      type: string
+                      example: "vendedor"
+        '500':
+          description: Error al obtener los vendedores
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los vendedores"
+
+  /vendedores/{id}/productos:
+    get:
+      summary: Listar productos vendidos por vendedor
+      description: Obtiene los productos vendidos por un vendedor específico.
+      operationId: listarProductosVendidosVendedorLTY
+      tags:
+        - Vendedores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador del vendedor
+          schema:
+            type: string
+            example: "leandro.yyy"
+      responses:
+        '200':
+          description: Productos vendidos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Productos vendidos obtenidos correctamente"
+                  productos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: integer
+                          example: 1
+                        descripcion:
+                          type: string
+                          example: "Producto Leandro"
+                        valor:
+                          type: number
+                          format: float
+                          example: 60.0
+                        cantidad:
+                          type: integer
+                          example: 40
+        '500':
+          description: Error al obtener los productos vendidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al obtener los productos vendidos"
+
+  /vendedores/{id}:
+    put:
+      summary: Modificar un vendedor
+      description: Actualiza la información de un vendedor existente.
+      operationId: modificarVendedorLTY
+      tags:
+        - Vendedores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador del vendedor
+          schema:
+            type: string
+            example: "leandro.yyy"
+      requestBody:
+        description: Datos actualizados del vendedor
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  description: Identificador único del vendedor
+                  example: "leandro.yyy"
+                contrasena:
+                  type: string
+                  description: Nueva contraseña del vendedor
+                  example: "nuevaContrasena123"
+                rol:
+                  type: string
+                  description: Rol asignado al vendedor
+                  example: "vendedor"
+      responses:
+        '200':
+          description: Vendedor modificado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Vendedor modificado con éxito"
+                  vendedor:
+                    type: object
+                    properties:
+                      usuario:
+                        type: string
+                        example: "leandro.yyy"
+                      contrasena:
+                        type: string
+                        example: "$2a$10$zJ7h0..."
+                      rol:
+                        type: string
+                        example: "vendedor"
+        '500':
+          description: Error al modificar el vendedor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al modificar el vendedor"
+
+    delete:
+      summary: Eliminar un vendedor
+      description: Elimina un vendedor del sistema.
+      operationId: eliminarVendedorLTY
+      tags:
+        - Vendedores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador del vendedor
+          schema:
+            type: string
+            example: "leandro.yyy"
+      responses:
+        '200':
+          description: Vendedor eliminado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Vendedor eliminado con éxito"
+        '500':
+          description: Error al eliminar el vendedor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al eliminar el vendedor"
