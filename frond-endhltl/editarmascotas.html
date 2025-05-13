@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualizar Mascota</title>
+  <link rel="stylesheet" href="css/editarmascota.css">
+</head>
+<body>
+  <header class="encabezado">
+    <a href="listarMascotashltl.html" class="boton-volver">← Volver</a>
+    <h1 class="titulo">Actualizar Mascota</h1>
+    <a href="listarMascotashltl.html" class="boton-cerrar">✕</a>
+  </header>
+
+  <section class="foto-mascota">
+    <img id="imagenMascota" src="" alt="Imagen de la mascota" class="imagen">
+  </section>
+
+  <form id="formularioMascota" class="formulario">
+    <input type="hidden" id="idMascota" name="idMascota">
+
+    <div class="campo">
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre de la mascota" required>
+    </div>
+
+    <div class="campo">
+      <select id="raza" name="raza" required></select>
+    </div>
+
+    <div class="campo">
+      <select id="categoria" name="categoria" required></select>
+    </div>
+
+    <div class="campo">
+      <input type="file" id="foto" name="foto" accept="image/*">
+    </div>
+
+    <div class="campo">
+      <select id="genero" name="genero" required></select>
+    </div>
+
+    <div class="campo">
+      <select id="usuario" name="usuario" required></select>
+    </div>
+
+    <div class="campo">
+      <select id="estado" name="estado" required>
+        <option value="Disponible">Disponible</option>
+        <option value="Adoptado">Adoptado</option>
+      </select>
+    </div>
+
+    <button type="submit" class="boton-actualizar">Actualizar</button>
+  </form>
+
+  <script>
+    // Cargar y actualizar datos de la mascota
+    async function gestionarMascota() {
+      const URL_API = "http://192.168.1.1:3000";
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (id) {
+        try {
+          const respuesta = await fetch(`${URL_API}/petshltl/${id}`);
+          if (!respuesta.ok) throw new Error("Error al cargar la mascota");
+          const mascota = await respuesta.json();
+          document.getElementById("idMascota").value = mascota.id || "";
+          document.getElementById("nombre").value = mascota.name || "";
+          document.getElementById("estado").value = mascota.estado || "";
+          document.getElementById("imagenMascota").src = mascota.photo || "";
+        } catch (err) {
+          console.error("Error al cargar datos:", err);
+          alert("No se pudieron cargar los datos de la mascota.");
+        }
+      }
+
+      document.getElementById("formularioMascota").addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+        const datos = new FormData(document.getElementById("formularioMascota"));
+
+        try {
+          const respuesta = await fetch(`${URL_API}/petshltl/${id}`, {
+            method: "PUT",
+            body: datos
+          });
+          if (!respuesta.ok) throw new Error("Error al actualizar la mascota");
+          const resultado = await respuesta.json();
+          alert(resultado.mensaje || "Mascota actualizada correctamente");
+          window.location.href = "listarMascotashltl.html";
+        } catch (err) {
+          console.error("Error al actualizar:", err);
+          alert("Error al actualizar la mascota. Verifica los datos o la conexión.");
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", gestionarMascota);
+  </script>
+  <script src="js/editarmascota_hltl.js"></script>
+</body>
+</html>

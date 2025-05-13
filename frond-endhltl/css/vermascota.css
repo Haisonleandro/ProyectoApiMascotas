@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #2A3F5F;
+  color: white;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh; /* Asegura que el body ocupe toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente todo el contenido */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente los elementos del header */
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 30px; /* Más espacio para un mejor balance visual */
+}
+
+.header h1 {
+  font-size: 24px;
+  margin: 0;
+  text-align: center; /* Centra el título dentro de su espacio */
+  flex-grow: 1; /* Permite que el título ocupe el espacio central */
+}
+
+.header a {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  width: 30px; /* Asegura que los enlaces tengan un ancho fijo para balancear */
+  text-align: center;
+}
+
+.pet-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 30px; /* Centra horizontalmente y aumenta el margen inferior */
+  overflow: hidden;
+}
+
+.pet-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-details {
+  width: 100%;
+  max-width: 400px; /* Ancho máximo consistente */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente el contenido dentro de cada item */
+  background-color: #4A5B7C;
+  padding: 12px 20px; /* Más padding para un mejor espaciado */
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  color: #E0E0E0;
+}
+
+.map-container {
+  flex-direction: column; /* Cambia a columna para que el mapa esté debajo de la etiqueta */
+  align-items: flex-start; /* Alinea el contenido a la izquierda */
+}
+
+.map {
+  width: 100%;
+  height: 200px; /* Altura fija para el mapa */
+  border-radius: 10px;
+  overflow: hidden;
+}

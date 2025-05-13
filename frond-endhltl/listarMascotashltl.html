@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrar Mascotas</title>
+  <link rel="stylesheet" href="css/inicio.css">
+  <script src="js/listarmascotasfjbs.js" defer></script>
+</head>
+<body>
+  <div class="header">
+    <a href="mapaMascotas.html" class="map-btn">Ver Mapa</a>
+    <h1 class="title">Administrar Mascotas</h1>
+    <a href="index.html" class="close"><img src="images/btn-close.svg" alt="Cerrar"></a>
+  </div>
+
+  <div class="content">
+    <a href="crearmascotas.html" class="btn-add">
+      <img src="images/btn-add.svg" alt="Adicionar">
+    </a>
+
+    <div id="petList" class="pet-list"></div>
+  </div>
+
+  <script>
+    // Función para cargar la lista de mascotas con opción de edición
+    async function loadPets() {
+      const API_URL = "http://192.168.1.1:3000";
+      try {
+        const response = await fetch(`${API_URL}/petsfjbs`);
+        if (!response.ok) throw new Error('Error en la respuesta del servidor');
+        const pets = await response.json();
+        const petList = document.getElementById("petList");
+
+        petList.innerHTML = "";
+        if (pets.length === 0) {
+          petList.innerHTML = "<p>No hay mascotas registradas.</p>";
+        } else {
+          pets.forEach(pet => {
+            const petItem = document.createElement("div");
+            petItem.classList.add("pet-item");
+            petItem.innerHTML = `
+              <p><strong>Nombre:</strong> ${pet.name || 'Sin nombre'}</p>
+              <p><strong>Estado:</strong> ${pet.estado || 'Sin estado'}</p>
+              <a href="editarmascotas.html?id=${pet.id || ''}" class="btn-edit">Editar</a>
+            `;
+            petList.appendChild(petItem);
+          });
+        }
+      } catch (error) {
+        console.error("Error al cargar mascotas:", error);
+        const petList = document.getElementById("petList");
+        petList.innerHTML = "<p>Error al cargar las mascotas. Verifica la conexión o el servidor.</p>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadPets);
+  </script>
+</body>
+</html>

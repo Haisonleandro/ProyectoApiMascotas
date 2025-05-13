@@ -61,11 +61,12 @@ model Pets {
   category_id  Int
   gender_id    Int
   User_id      BigInt
-  name         String  @db.VarChar(30)
-  photo        String  @db.VarChar(255)
   estado       Estado  @default(Disponible)
   latitude     Float?  
-  longitude    Float?  
+  longitude    Float?
+  name         String  @db.VarChar(30)
+  photo        String  @db.VarChar(255)
+    
   
   user         Users      @relation(fields: [User_id], references: [identificacion])
   race         Races      @relation(fields: [race_id], references: [id])
