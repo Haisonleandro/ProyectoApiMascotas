@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Administrar Mascotas</title>
-  <link rel="stylesheet" href="css/inicio.css">
-  <script src="js/listarmascotasfjbs.js" defer></script>
+  <link rel="stylesheet" href="css/iniciohltl.css">
+  <script src="js/listarmascotashltl.js" defer></script>
 </head>
 <body>
   <div class="header">
@@ -22,11 +22,11 @@
   </div>
 
   <script>
-    // Función para cargar la lista de mascotas con opción de edición
+    
     async function loadPets() {
-      const API_URL = "http://192.168.1.1:3000";
+      const API_URL = "http://192.168.1.2:3000";
       try {
-        const response = await fetch(`${API_URL}/petsfjbs`);
+        const response = await fetch(`${API_URL}/petshltl`);
         if (!response.ok) throw new Error('Error en la respuesta del servidor');
         const pets = await response.json();
         const petList = document.getElementById("petList");
@@ -49,7 +49,7 @@
       } catch (error) {
         console.error("Error al cargar mascotas:", error);
         const petList = document.getElementById("petList");
-        petList.innerHTML = "<p>Error al cargar las mascotas. Verifica la conexión o el servidor.</p>";
+        petList.innerHTML = "<p>Error al cargar las mascotas. Verifica la conexión del servidor.</p>";
       }
     }
 

@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "canvas": "^3.1.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }

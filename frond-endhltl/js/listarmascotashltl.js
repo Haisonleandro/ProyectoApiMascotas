@@ -1,4 +1,4 @@
-const BASE_API = "http://192.168.1.1:3000";
+const BASE_API = "http://192.168.1.2:3000";
 
 // Obtener encabezados de autenticación
 const fetchAuthHeaders = () => {
@@ -80,44 +80,6 @@ const initializeDeleteButtons = () => {
         alert(`Error al eliminar mascota: ${error.message}`);
       }
     });
-  });
-};
-
-// Configurar botón de reporte
-const initializeReportButton = () => {
-  const reportButton = document.querySelector("#generateReportBtn");
-  if (!reportButton) {
-    console.warn("Botón de generar reporte no encontrado");
-    return;
-  }
-
-  reportButton.addEventListener("click", async () => {
-    try {
-      const response = await fetch(`${BASE_API}/generar-reporte-mascotas`, {
-        method: "GET",
-        headers: fetchAuthHeaders(),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Error al generar el reporte");
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const downloadLink = document.createElement("a");
-      downloadLink.href = url;
-      downloadLink.download = "reporte_mascotas.pdf";
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      downloadLink.remove();
-      URL.revokeObjectURL(url);
-
-      alert("Reporte generado exitosamente");
-    } catch (error) {
-      console.error("Error al generar el reporte:", error);
-      alert(`Error: ${error.message}`);
-    }
   });
 };
 

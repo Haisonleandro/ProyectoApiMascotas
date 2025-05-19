@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Reportes de Mascotas</title>
+  <link rel="stylesheet" href="css/reporteshltl.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="js/reporteshltl.js"></script>
+</head>
+<body>
+  <header class="top-bar">
+    <h1>Panel de Reportes de Mascotas</h1>
+    <nav>
+      <a href="listarMascotashltl.html" class="link-back">Volver</a>
+      <a href="listarMascotashltl.html" class="link-close">
+        <img src="images/btn-close.svg" alt="Cerrar">
+      </a>
+    </nav>
+  </header>
+  <main class="report-area">
+    <section class="controls">
+      <button id="pdfDownloadBtn" class="btn-report">Descargar Reporte PDF</button>
+    </section>
+    <section class="table-section">
+      <h2>Resumen de Mascotas</h2>
+      <div class="table-scroll">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Raza</th>
+              <th>Categoría</th>
+              <th>Género</th>
+              <th>Estado</th>
+              <th>Propietario</th>
+            </tr>
+          </thead>
+          <tbody id="dataTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="graph-section">
+      <h2>Estadísticas por Estado</h2>
+      <div class="graph-box">
+        <canvas id="stateGraph"></canvas>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

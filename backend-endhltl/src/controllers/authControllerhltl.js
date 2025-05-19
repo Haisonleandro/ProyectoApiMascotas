@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
-import { sign, verify } from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
+const { sign, verify } = pkg;
 import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();

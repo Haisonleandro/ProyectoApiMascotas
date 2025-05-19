@@ -6,7 +6,7 @@ import {
     getGenderByIdhltl, 
     updateGenderhltl, 
     deleteGenderhltl 
-} from "../controllers/gendersController_hltl.js";
+} from "../controllers/gendersControllerhltl.js";
 
 const genderRouter = Router();
 

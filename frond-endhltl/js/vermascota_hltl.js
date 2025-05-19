@@ -1,5 +1,5 @@
 window.addEventListener('load', async () => {
-    const API_BASE = "http://192.168.1.1:3000";
+    const API_BASE = "http://192.168.1.2:3000";
     const petId = new URLSearchParams(window.location.search).get('id');
 
     const fetchAuthHeaders = () => {

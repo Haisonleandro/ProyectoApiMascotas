@@ -1,4 +1,4 @@
-const BASE_API = "http://192.168.1.1:3000";
+const BASE_API = "http://192.168.1.2:3000";
 
 // Obtener encabezados de autenticación
 const fetchAuthHeaders = () => {

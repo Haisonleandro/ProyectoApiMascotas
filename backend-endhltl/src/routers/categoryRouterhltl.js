@@ -6,7 +6,7 @@ import {
     getCategoryByIdhltl, 
     updateCategoryhltl, 
     deleteCategoryhltl 
-} from "../controllers/categoryController_hltl.js";
+} from "../controllers/categoryControllerhltl.js";
 
 const router = Router();
 
